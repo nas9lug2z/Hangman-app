@@ -30,7 +30,7 @@ body {
   border: 2px solid var(--main-font-color);
 }
 .hangman__stats {
-  color: lightyellow;
+  color: white;
   font-family: var(--font-body-stack);
 }
 .hangman__title {
@@ -77,15 +77,16 @@ body {
   background: var(--light-white);
   color: var(--light-black);
   border: 3px solid var(--main-bg-color);
-  font-size: 1.2rem;
+  font-size: 1rem;
   letter-spacing: 0;
-  min-width: 3rem;
+  min-width: 2.6rem;
+  font-weight: 800;
 }
 .hangman__letter--active {
   background-color: #555;
 }
 .hangman__letter:hover {
-  cursor: default;
+  cursor: pointer;
   border: 3px solid var(--light-yellow);
 }
 .button {
