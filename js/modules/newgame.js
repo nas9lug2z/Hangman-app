@@ -50,6 +50,7 @@ const NewGame = (_ => {
     const renderRandomWord = (_) => {
         wordToGuess = words[pickRandomFrom(words)];
         cryptWord = [];
+        lives = 7;
         for (let letter of wordToGuess) {
             cryptWord.push('_');
         }
