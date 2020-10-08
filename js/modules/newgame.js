@@ -1,4 +1,6 @@
 import Home from './home.js';
+import Win from './win.js';
+import GameOver from './gameover.js';
 
 
 const NewGame = (_ => {
@@ -77,22 +79,23 @@ const NewGame = (_ => {
             document.querySelector('.hangman__word').innerHTML = cryptWord.join('');
         }
         else {
+            //update lives situation
             lives--;
-
-            //!!update lives situation
             document.querySelector('.hangman__stats').innerHTML = `Lives: ${lives}`;
-        }
 
+            //!!draw a hangman
+            // HangmanCanvas.add();
+        };
         checkWinOrLoose();
     }
 
 
     const checkWinOrLoose = _ => {
         if (lives === 0) {
-            GameOver.init();
+            GameOver.init(wordToGuess);
         }
         else if (cryptWord.includes('_') === false) {
-            Win.init();
+            Win.init(wordToGuess);
         }
     }
 
