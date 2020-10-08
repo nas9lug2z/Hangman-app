@@ -49,7 +49,6 @@ const NewGame = (_ => {
     //render a crypt word with corresponding number of dashes into HTML
     const renderRandomWord = (_) => {
         wordToGuess = words[pickRandomFrom(words)];
-        console.log(wordToGuess)
         cryptWord = [];
         for (let letter of wordToGuess) {
             cryptWord.push('_');

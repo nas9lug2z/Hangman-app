@@ -9,7 +9,7 @@ const Win = (guessedWord => {
     //render win screen
     const renderWin = guessedWord => {
         $hangman.innerHTML = `
-        <h1 class="hangman__title">You win!</h1>
+        <h1 class="hangman__title">You won!</h1>
         <p class="result">The word is <strong>${guessedWord.toUpperCase()}</strong>!</p>
         <button class="button return-to-menu" style="margin: 0 auto">Main Menu</button>
         `
