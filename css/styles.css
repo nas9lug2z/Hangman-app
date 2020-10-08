@@ -51,6 +51,8 @@ body {
   text-align: center;
   margin: 1.5rem 0;
   letter-spacing: 0.6rem;
+  font-family: var(--font-body-stack);
+  text-transform: uppercase;
 }
 .hangman__instructions {
   font-family: var(--font-body-stack);

@@ -7,11 +7,10 @@ const NewGame = (_ => {
     const $hangman = document.querySelector('.hangman');
 
 
-    //create varibles
-
+    //create variables
     let wordToGuess;
-    let guesses = [];
-    let lives;
+    let cryptWord = [];
+    let lives = 7;
     const words = ['apple', 'cat', 'helicopter', 'elephant', 'joke', 'cookie'];
 
     //render home page HTML
@@ -20,7 +19,7 @@ const NewGame = (_ => {
 
         let markup = '';
         markup += `
-        <span class="hangman__stats"></span>
+        <span class="hangman__stats">Lives: 7</span>
         <h1 class="hangman__title">Hangman</h1>
         <br>
         <canvas class="hangman__board"></canvas>
@@ -32,11 +31,12 @@ const NewGame = (_ => {
         }
         markup += `</ul>
         </div><br>
-        <button class="button start" style="margin: 0 auto">New Game</button>`
+        <button class="button return-to-menu" style="margin: 0 auto">Main Menu</button>`
 
         //insert into HTMl
         $hangman.innerHTML = markup;
     }
+
 
     //pick a random word
     const pickRandomFrom = (wordArray) => {
@@ -45,32 +45,65 @@ const NewGame = (_ => {
 
     //render a crypt word with corresponding number of dashes into HTML
     const renderRandomWord = (_) => {
-        let cryptWord = [];
         wordToGuess = words[pickRandomFrom(words)];
         console.log(wordToGuess)
+        cryptWord = [];
         for (let letter of wordToGuess) {
             cryptWord.push('_');
         }
-        console.log(cryptWord)
+
         //insert cryptword into the html
-        document.querySelector('.hangman__word').innerHTML = cryptWord.join("");
+        document.querySelector('.hangman__word').innerHTML = cryptWord.join('');
     }
 
     //guess a letter
-    const guessClick = (e) => {
-        guesses.push(e.target.innerHTML)
-        console.log(guesses);
+    const checkGuess = (e) => {
+        //remove letter from options
+        e.target.classList.add('hangman__letter--active');
+        e.target.style.pointerEvents = 'none';
+
+        const currentGuess = e.target.innerHTML;
+
+        //check if we have that guess
+        if (wordToGuess.includes(currentGuess)) {
+            //update the guessing word
+            wordToGuess.split('').forEach((letter, index) => {
+                if (letter === currentGuess) {
+                    cryptWord[index] = currentGuess;
+                }
+            })
+
+            //insert update cryptword into HTML
+            document.querySelector('.hangman__word').innerHTML = cryptWord.join('');
+        }
+        else {
+            lives--;
+
+            //!!update lives situation
+            document.querySelector('.hangman__stats').innerHTML = `Lives: ${lives}`;
+        }
+
+        checkWinOrLoose();
     }
 
 
+    const checkWinOrLoose = _ => {
+        if (lives === 0) {
+            GameOver.init();
+        }
+        else if (cryptWord.includes('_') === false) {
+            Win.init();
+        }
+    }
+
     //listeners
     const listeners = _ => {
-        // document.querySelector('.start').addEventListener('click', _ => {
-        //     NewGame.init();
-        // });
+        document.querySelector('.return-to-menu').addEventListener('click', _ => {
+            Home.init();
+        });
         document.querySelector('.hangman__letters').addEventListener('click', e => {
             if (e.target.classList.contains('hangman__letter')) {
-                guessClick(e);
+                checkGuess(e);
             }
         })
     }
