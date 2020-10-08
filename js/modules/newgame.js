@@ -1,6 +1,7 @@
 import Home from './home.js';
 import Win from './win.js';
 import GameOver from './gameover.js';
+import HangmanCanvas from './canvas.js';
 
 
 const NewGame = (_ => {
@@ -83,12 +84,11 @@ const NewGame = (_ => {
             lives--;
             document.querySelector('.hangman__stats').innerHTML = `Lives: ${lives}`;
 
-            //!!draw a hangman
-            // HangmanCanvas.add();
+            //pass lives to the hangman canvas
+            HangmanCanvas.setLives(lives);
         };
         checkWinOrLoose();
     }
-
 
     const checkWinOrLoose = _ => {
         if (lives === 0) {
@@ -115,6 +115,7 @@ const NewGame = (_ => {
         renderGame();
         renderRandomWord();
         listeners();
+        HangmanCanvas.init();
     }
     return {
         init
