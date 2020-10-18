@@ -2,19 +2,20 @@ import Home from './home.js';
 import Win from './win.js';
 import GameOver from './gameover.js';
 import HangmanCanvas from './canvas.js';
+import Api from './API.js';
 
 
-const NewGame = (_ => {
+const NewGame = ( fetchedWord => {
 
     //cache the DOM
     const $hangman = document.querySelector('.hangman');
-
+    
 
     //create variables
     let wordToGuess;
     let cryptWord = [];
     let lives = 7;
-    const words = ['apple', 'cat', 'helicopter', 'elephant', 'joke', 'cookie'];
+    const words = ['apple', 'cat', 'helicopter', 'elephant', 'joke', 'cookie', 'jazz'];
 
     //render home page HTML
     const renderGame = _ => {
@@ -42,13 +43,26 @@ const NewGame = (_ => {
 
 
     //pick a random word
-    const pickRandomFrom = (wordArray) => {
-        return Math.floor(Math.random() * wordArray.length);
-    }
+    // const pickRandomFrom = (wordArray) => {
+    //     return Math.floor(Math.random() * wordArray.length);
+    // }
 
     //render a crypt word with corresponding number of dashes into HTML
-    const renderRandomWord = (_) => {
-        wordToGuess = words[pickRandomFrom(words)];
+    // const renderRandomWord = (_) => {
+    //     wordToGuess = words[pickRandomFrom(words)];
+    //     cryptWord = [];
+    //     lives = 7;
+    //     for (let letter of wordToGuess) {
+    //         cryptWord.push('_');
+    //     }
+
+    //     //insert cryptword into the html
+    //     document.querySelector('.hangman__word').innerHTML = cryptWord.join('');
+    // }
+
+    //render a word from API corresponding number of dashes into HTML
+    const renderAPIWord = _ => {
+        // wordToGuess = fetchedWord;
         cryptWord = [];
         lives = 7;
         for (let letter of wordToGuess) {
@@ -58,6 +72,7 @@ const NewGame = (_ => {
         //insert cryptword into the html
         document.querySelector('.hangman__word').innerHTML = cryptWord.join('');
     }
+    
 
     //guess a letter
     const checkGuess = (e) => {
@@ -111,9 +126,11 @@ const NewGame = (_ => {
         })
     }
 
-    const init = _ => {
-        renderGame();
-        renderRandomWord();
+    const init = async fetchedWord => {
+        wordToGuess = await Api.getInfo();
+        const produceGame = await renderGame();
+        const produceWord = renderAPIWord();
+        // renderRandomWord();
         listeners();
         HangmanCanvas.init();
     }

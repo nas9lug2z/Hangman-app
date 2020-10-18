@@ -3,7 +3,7 @@ import Instructions from './instructions.js';
 
 
 
-const Home = (_ => {
+const Home = ( fetchedWord => {
 
     //cache the DOM
     const $hangman = document.querySelector('.hangman');
@@ -22,7 +22,7 @@ const Home = (_ => {
     //listeners
     const listeners = _ => {
         document.querySelector('.start').addEventListener('click', _ => {
-            NewGame.init();
+            NewGame.init(fetchedWord);
         });
         document.querySelector('.instructions').addEventListener('click', _ => {
             Instructions.init();
